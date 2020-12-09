@@ -17,6 +17,15 @@ Installing this won't scatter loads of files around your system. Everything is
 contained within `~/.config` so uninstalling is as simple as deleting that
 directory.
 
+## Personal stuff
+
+Some of these configs contain personal settings that almost certainly won't
+apply to anybody else.
+
+If you are using these dotfiles on your own system, be sure to change these:
+
+- [`git`](git/config): uses my name and email address
+
 ## Dependencies
 
 There are no hard dependencies to use these configs but there are implicit
