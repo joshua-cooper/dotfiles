@@ -1,0 +1,16 @@
+/*
+!.editorconfig
+!.gitignore
+!README.md
+!LICENSE
+!/bin/
+!/fish/
+!/fontconfig/
+!/i3status/
+!/mako/
+!/mpd/
+!/nvim/
+!/sway/
+!/swaylock/
+!/termite/
+!/tmux/

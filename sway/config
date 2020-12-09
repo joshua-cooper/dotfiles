@@ -1,0 +1,152 @@
+xwayland enable
+exec mako
+exec termite --name=scratch -e "tmux new-session -A -s scratch"
+exec swayidle -w \
+  timeout 540 "swaymsg 'output * dpms off'" \
+  resume "swaymsg 'output * dpms on'" \
+  timeout 600 "swaylock -f" \
+  before-sleep "swaylock -f"
+
+set $bg #1d2021
+set $fg #ebdbb2
+set $fg_faint #a89984 
+set $focused #3c3836
+set $urgent #cc241d
+
+default_border pixel 0
+default_floating_border pixel 1
+title_align center
+titlebar_padding 10 1
+titlebar_border_thickness 0
+hide_edge_borders smart
+focus_wrapping no
+floating_modifier Mod4
+gaps inner 1
+
+seat * {
+  hide_cursor 5000
+}
+
+input type:keyboard {
+  repeat_delay 500
+  repeat_rate 75
+  xkb_options caps:escape,altwin:menu_win
+}
+
+output * {
+  background "#000000" solid_color
+}
+
+bar 1 {
+  position bottom
+  tray_output none
+  mode hide
+  strip_workspace_numbers yes
+  status_command i3status
+  separator_symbol " "
+  colors {
+    background $bg
+    statusline $fg
+    focused_workspace $focused $focused $fg
+    inactive_workspace $bg $bg $fg_faint
+    urgent_workspace $bg $bg $urgent
+    binding_mode $bg $bg $fg
+  }
+}
+
+client.focused $focused $focused $fg $focused $focused
+client.focused_inactive $focused $focused $fg_faint $bg $bg
+client.unfocused $focused $bg $fg_faint $bg $bg
+client.urgent $bg $bg $urgent $urgent $urgent
+
+for_window [app_id="scratch"] {
+  move scratchpad
+  sticky enable
+  border pixel 5
+  resize set 800 500
+}
+
+for_window [app_id="floating"] {
+  floating enable
+  border pixel 1
+}
+
+bindsym {
+  Mod4+space focus mode_toggle
+  Mod4+shift+space floating toggle
+  Mod4+s layout toggle split
+  Mod4+shift+s split toggle
+  Mod4+t layout toggle tabbed stacking
+  Mod4+shift+t layout toggle stacking tabbed
+  Mod4+f fullscreen
+  Mod4+tab workspace back_and_forth
+  Mod4+shift+c kill
+  Mod4+b bar 1 mode toggle
+
+  Mod4+bracketleft focus child
+  Mod4+bracketright focus parent
+  Mod4+h focus left
+  Mod4+shift+h move left
+  Mod4+j focus down
+  Mod4+shift+j move down
+  Mod4+k focus up
+  Mod4+shift+k move up
+  Mod4+l focus right
+  Mod4+shift+l move right
+
+  Mod4+1 workspace 1
+  Mod4+shift+1 move container to workspace 1
+  Mod4+2 workspace 2
+  Mod4+shift+2 move container to workspace 2
+  Mod4+3 workspace 3
+  Mod4+shift+3 move container to workspace 3
+  Mod4+4 workspace 4
+  Mod4+shift+4 move container to workspace 4
+  Mod4+5 workspace 5
+  Mod4+shift+5 move container to workspace 5
+  Mod4+6 workspace 6
+  Mod4+shift+6 move container to workspace 6
+  Mod4+7 workspace 7
+  Mod4+shift+7 move container to workspace 7
+  Mod4+8 workspace 8
+  Mod4+shift+8 move container to workspace 8
+  Mod4+9 workspace 9
+  Mod4+shift+9 move container to workspace 9
+  Mod4+0 workspace 10
+  Mod4+shift+0 move container to workspace 10
+
+  Mod4+r bar 1 hidden_state show; mode "Resize"
+
+  Mod4+return exec termite
+  Mod4+o exec bemenu-run -p "Launcher"
+  Mod4+shift+o exec search-menu -i
+  Mod4+p exec pass-menu
+  Mod4+shift+p exec otp-menu
+  Mod4+shift+q exec swaylock -f
+
+  Mod4+a [app_id="scratch"] scratchpad show; [app_id="scratch"] move position center
+}
+
+bindsym --locked {
+  Mod4+c exec makoctl dismiss -a
+  Mod4+m exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+  Mod4+comma exec pactl set-sink-volume @DEFAULT_SINK@ -1%
+  Mod4+period exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+  Mod4+shift+m exec mpc toggle
+  Mod4+less exec mpc prev
+  Mod4+greater exec mpc next
+}
+
+mode "Resize" {
+  bindsym {
+    escape bar 1 hidden_state hide; mode "default"
+    return bar 1 hidden_state hide; mode "default"
+    h resize shrink width 10px
+    j resize shrink height 10px
+    k resize grow height 10px
+    l resize grow width 10px
+    space move position center
+  }
+}
+
+# vim: ft=conf

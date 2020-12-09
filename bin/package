@@ -1,0 +1,32 @@
+#!/bin/sh
+
+update() {
+  sudo pacman -Syu
+}
+
+install() {
+  if [ -n "$1" ]; then
+    sudo pacman -S "$@"
+  else
+    choice=$(pacman -Sql | fzf -m --prompt "Install ")
+    [ -n "$choice" ] || exit
+    sudo pacman -S $choice
+  fi
+}
+
+remove() {
+  if [ -n "$1" ]; then
+    sudo pacman -Rns "$@"
+  else
+    choice=$(pacman -Qq | fzf -m --prompt "Remove ")
+    [ -n "$choice" ] || exit
+    sudo pacman -Rns $choice
+  fi
+}
+
+case "$1" in
+  update) update ;;
+  list) list ;;
+  install) shift && install "$@" ;;
+  remove) shift && remove "$@" ;;
+esac

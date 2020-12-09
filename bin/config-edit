@@ -1,0 +1,5 @@
+#!/bin/sh
+
+choice=$(cd "$XDG_CONFIG_HOME" && git ls-files | fzf)
+[ -n "$choice" ] || exit
+$EDITOR "$XDG_CONFIG_HOME/$choice"

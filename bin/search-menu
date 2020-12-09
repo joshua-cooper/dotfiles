@@ -1,0 +1,39 @@
+#!/bin/sh
+
+interactive_flag=false
+
+while getopts 'i' flag; do
+  case "${flag}" in
+    i) interactive_flag=true ;;
+    *) ;;
+  esac
+done
+
+engines="ddg - DuckDuckGo
+g - Google
+aw - Arch Wiki
+yt - YouTube
+url - URL"
+
+if [ "$interactive_flag" = true ]; then
+  engine=$(echo "$engines" | bemenu -p "Search engine" | cut -d " " -f1)
+  [ -n "$engine" ] || exit
+else
+  engine=$1
+fi
+
+case "$engine" in
+  ddg) choice=$(printf "" | bemenu -p "DuckDuckGo")
+    site="https://duckduckgo.com/?q=$choice" ;;
+  g) choice=$(printf "" | bemenu -p "Google")
+    site="https://www.google.com/search?hl=en&q=$choice" ;;
+  aw) choice=$(printf "" | bemenu -p "Arch Wiki")
+    site="https://wiki.archlinux.org/index.php?search=$choice" ;;
+  yt) choice=$(printf "" | bemenu -p "YouTube")
+    site="https://www.youtube.com/results?search_query=$choice" ;;
+  *) choice=$(printf "" | bemenu -p "URL"); site="$choice" ;;
+esac
+
+[ -n "$choice" ] || exit
+
+$BROWSER "$site"
