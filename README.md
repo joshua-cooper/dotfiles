@@ -25,38 +25,8 @@ in the shell config will not work without git.
 
 That being said, here's a list of everything needed to get full functionality.
 
-Terminal:
-
-- git
-- tmux
-- neovim
-- bat
-- exa
-- fd
-- fzf
-- pass
-- sudo
-- mpd
-- pulseaudio
-- ssh-agent
-
-GUI:
-
-- sway
-- swaylock
-- swayidle
-- i3status
-- termite
-- mako
-- bemenu
-- firefox
-
-Fonts:
-
-- cascadia code
-
-The configuration for GUI software can be safely ignored on systems where it
-won't or can't be used, e.g. MacOS and headless servers.
+(The configuration for GUI software can be safely ignored on systems where it
+won't or can't be used, e.g. MacOS and headless servers.)
 
 ### Shell - Fish
 
@@ -108,6 +78,12 @@ To get the best experience you'll need:
 - bemenu (menu)
 - pulseaudio (sound)
 - mpd (music)
+
+### Fonts
+
+Default fonts are specified in the [`fontconfig`](fontconfig/fonts.conf) file.
+I like the roboto fonts and [cascadia code](https://github.com/microsoft/cascadia-code)
+for monospace.
 
 ### Scripts
 
