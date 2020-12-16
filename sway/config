@@ -1,6 +1,7 @@
 xwayland enable
+exec foot -s
 exec mako
-exec termite --name=scratch -e "tmux new -As scratch"
+exec scratch
 exec swayidle -w \
   timeout 600 "swaymsg 'output * dpms off'" \
   resume "swaymsg 'output * dpms on'" \
@@ -117,7 +118,7 @@ bindsym {
 
   Mod4+r bar 1 hidden_state show; mode "Resize"
 
-  Mod4+return exec termite
+  Mod4+return exec footclient
   Mod4+o exec bemenu-run -p "Launcher"
   Mod4+shift+o exec search-menu -i
   Mod4+p exec pass-menu

@@ -79,7 +79,7 @@ your `$PATH` when using my fish config.
 To get the best experience you'll need:
 
 - mako (notifications)
-- termite (terminal emulator)
+- foot (terminal emulator)
 - swayidle (idle detection)
 - swaylock (screen locker)
 - i3status (status line)
