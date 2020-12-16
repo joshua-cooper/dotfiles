@@ -1,6 +1,7 @@
 let mapleader = " "
 let g:plug_window = 'enew'
 let g:fzf_preview_window = ''
+let g:gruvbox_italic = 1
 
 call plug#begin()
 Plug 'justinmk/vim-dirvish'
@@ -11,12 +12,21 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'gruvbox-community/gruvbox'
+
+" Language support
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'dag/vim-fish', { 'for': 'fish' }
 call plug#end()
 
 if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+silent! colorscheme gruvbox
+
+set termguicolors
 set confirm
 set mouse=a
 set lazyredraw
@@ -27,6 +37,7 @@ set noshowmode
 set noshowcmd
 set expandtab shiftwidth=2 tabstop=8 softtabstop=-1
 set incsearch
+set inccommand=nosplit
 set splitright splitbelow
 set list
 set nowrap
