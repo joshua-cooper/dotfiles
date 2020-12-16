@@ -46,7 +46,6 @@ programs:
 - tmux (alias)
 - neovim ($EDITOR)
 - firefox ($BROWSER)
-- bat (alias for cat)
 - exa (alias for ls)
 
 Optionally:
