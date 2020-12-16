@@ -1,10 +1,10 @@
 xwayland enable
 exec mako
-exec termite --name=scratch -e "tmux new-session -A -s scratch"
+exec termite --name=scratch -e "tmux new -As scratch"
 exec swayidle -w \
-  timeout 540 "swaymsg 'output * dpms off'" \
+  timeout 600 "swaymsg 'output * dpms off'" \
   resume "swaymsg 'output * dpms on'" \
-  timeout 600 "swaylock -f" \
+  timeout 660 "swaylock -f" \
   before-sleep "swaylock -f"
 
 set $bg #1d2021
@@ -13,7 +13,7 @@ set $fg_faint #a89984
 set $focused #3c3836
 set $urgent #cc241d
 
-default_border pixel 0
+default_border pixel 1
 default_floating_border pixel 1
 title_align center
 titlebar_padding 10 1
@@ -21,7 +21,7 @@ titlebar_border_thickness 0
 hide_edge_borders smart
 focus_wrapping no
 floating_modifier Mod4
-gaps inner 1
+gaps inner 2
 
 seat * {
   hide_cursor 5000
@@ -40,7 +40,7 @@ output * {
 bar 1 {
   position bottom
   tray_output none
-  mode hide
+  mode dock
   strip_workspace_numbers yes
   status_command i3status
   separator_symbol " "
@@ -122,7 +122,7 @@ bindsym {
   Mod4+shift+o exec search-menu -i
   Mod4+p exec pass-menu
   Mod4+shift+p exec otp-menu
-  Mod4+shift+q exec swaylock -f
+  Mod4+escape exec swaylock -f
 
   Mod4+a [app_id="scratch"] scratchpad show; [app_id="scratch"] move position center
 }
@@ -145,6 +145,10 @@ mode "Resize" {
     j resize shrink height 10px
     k resize grow height 10px
     l resize grow width 10px
+    shift+h resize shrink width 50px
+    shift+j resize shrink height 50px
+    shift+k resize grow height 50px
+    shift+l resize grow width 50px
     space move position center
   }
 }
